@@ -1,0 +1,29 @@
+{
+  "name": "modify",
+  "version": "0.0.1",
+  "description": "Just immutably modify objects/arrays.",
+  "license": "MIT",
+  "author": "Kaido Iwamoto <kaido@odiak.net>",
+  "homepage": "https://github.com/odiak/modify",
+  "repository": "github:odiak/modify",
+  "keywords": [
+    "immutable"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "packageManager": "yarn@3.2.2",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "jest": "^28.1.3",
+    "prettier": "^2.7.1",
+    "ts-jest": "^28.0.8",
+    "typescript": "^4.7.4"
+  }
+}
