@@ -1,5 +1,5 @@
 {
-  "name": "modify",
+  "name": "@odiak/modify",
   "version": "0.0.1",
   "description": "Just immutably modify objects/arrays.",
   "license": "MIT",
