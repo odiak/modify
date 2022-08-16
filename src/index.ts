@@ -13,13 +13,19 @@ type ReplaceObject<T, K extends keyof T, V> = {
   [Key in keyof T]: Key extends K ? V : T[Key]
 }
 
-function validate(value: unknown) {
+type IfNotKeyOf<T, K> = K extends keyof T ? never : K
+type Add<T, K extends string | number, V> = K extends keyof T
+  ? T
+  : T & { [k in K]: V }
+
+function validate(value: unknown, noArray: boolean = false) {
   if (
     value === null ||
     value === undefined ||
     typeof value === 'number' ||
     typeof value === 'string' ||
-    typeof value === 'boolean'
+    typeof value === 'boolean' ||
+    (noArray && Array.isArray(value))
   ) {
     throw new Error(`Cannot perform operation for value: ${value}`)
   }
@@ -94,6 +100,27 @@ class Modifier<T> {
         : valueOrDispatch
     copy[keys[keys.length - 1]] = newValue
     return new Modifier(newWhole)
+  }
+
+  remove<K extends keyof T>(key: K): Modifier<Omit<T, K>> {
+    const whole = this.value
+    validate(whole, true)
+    const newWhole = copyObject(whole)
+    delete newWhole[key]
+    return new Modifier(newWhole as Omit<T, K>)
+  }
+
+  add<K extends string | number, V>(
+    key: IfNotKeyOf<T, K>,
+    valueOrDispatch: ValueOrDispatch<T, V>
+  ): Modifier<Add<T, K, V>> {
+    const whole = this.value
+    validate(whole, true)
+    const value =
+      typeof valueOrDispatch === 'function'
+        ? unwrap((valueOrDispatch as Dispatch<T, V>)(new Modifier(whole)))
+        : valueOrDispatch
+    return new Modifier({ ...whole, [key]: value } as Add<T, K, V>)
   }
 }
 export type { Modifier }
