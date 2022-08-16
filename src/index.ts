@@ -81,7 +81,7 @@ class Modifier<T> {
 
     const whole = this.value
     validate(whole)
-    const newWhole = { ...whole }
+    const newWhole = copyObject(whole)
     let obj: any = whole
     let copy: any = newWhole
     for (const [i, key] of keys.entries()) {
