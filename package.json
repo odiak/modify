@@ -1,6 +1,6 @@
 {
   "name": "@odiak/modify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Just immutably modify objects/arrays.",
   "license": "MIT",
   "author": "Kaido Iwamoto <kaido@odiak.net>",
